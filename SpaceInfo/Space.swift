@@ -38,6 +38,10 @@ class Space: NSObject {
         var activeDisplay = 0
         var theInfo = ""
         
+        var nextSpaceID = -1
+        var nextSpace = 0
+        var prevSpace = 0
+        
         for d in displays {
             totalDisplays += 1
             guard
@@ -124,6 +128,28 @@ class Space: NSObject {
                     theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
                 }
             }
+            
+        case "nextSpace":
+            // active space. total spaces
+            if activeSpace == totalSpaces{
+                nextSpace = activeSpace
+                theInfo = verbose ? "already on last space for display #\(display): \(activeSpace)\n" : String(describing: 0)
+            } else {
+                nextSpace = activeSpace + 1
+               theInfo = verbose ? "next space for display #\(display): \(nextSpace)\n" : String(describing: activeSpace)
+            }
+        case "prevSpace":
+            // active space. total spaces
+            if activeSpace == 1{
+                prevSpace = activeSpace
+                theInfo = verbose ? "already on first space for display #\(display): \(activeSpace)\n" : String(describing: 0)
+            } else {
+                prevSpace = activeSpace - 1
+               theInfo = verbose ? "next space for display #\(display): \(prevSpace)\n" : String(describing: activeSpace)
+            }
+
+            break
+           
         default: break
         }
         return theInfo
